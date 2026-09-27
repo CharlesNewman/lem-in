@@ -16,6 +16,9 @@ func ParseData(data string) (Colony, error) {
 		Connections: []Connection{},
 	}
 
+	nextRoomIsStart := false
+	nextRoomIsEnd := false
+
 	for i := 0; i < len(datasplit); i++ {
 		indata := datasplit[i]
 
@@ -24,6 +27,14 @@ func ParseData(data string) (Colony, error) {
 		}
 
 		if strings.HasPrefix(indata, "#") && indata != "##start" && indata != "##end" {
+			continue
+		}
+		if indata == "##start" {
+			nextRoomIsStart = true
+			continue
+		}
+		if indata == "##end" {
+			nextRoomIsEnd = true
 			continue
 		}
 
@@ -55,6 +66,17 @@ func ParseData(data string) (Colony, error) {
 				Name: parts[0],
 				X:    x,
 				Y:    y,
+			}
+			if nextRoomIsStart {
+				colony.Start = room.Name
+				colony.StartCount++
+				nextRoomIsStart = false
+			}
+
+			if nextRoomIsEnd {
+				colony.End = room.Name
+				nextRoomIsEnd = false
+				colony.EndCount++
 			}
 
 			fmt.Printf("This is the room: %s %d %d\n", room.Name, room.X, room.Y)

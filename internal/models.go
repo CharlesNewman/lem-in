@@ -15,4 +15,8 @@ type Colony struct {
 	Ants        int
 	Rooms       map[string]Room
 	Connections []Connection
+	Start       string
+	End         string
+	StartCount  int
+	EndCount    int
 }
