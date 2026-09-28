@@ -24,3 +24,16 @@ func Validate(colony Colony) error {
 	}
 	return nil
 }
+
+// What i would do next:
+// Check Start exists in Rooms
+// Check End exists in Rooms
+// Check Start != End
+// Check duplicate room names
+// Check duplicate room coordinates, if you decide to enforce that
+// Check each connection uses rooms that actually exist
+// Check no room connects to itself
+// Check duplicate connections
+// Treat A-B and B-A as the same connection
+// Check there is at least one connection
+// Return nil only if everything passes
